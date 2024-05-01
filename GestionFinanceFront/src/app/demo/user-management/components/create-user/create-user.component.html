@@ -1,0 +1,61 @@
+<div class="row">
+  <div class="col-sm-12">
+    <app-card cardTitle="Add a new User" [options]="false">
+      <form (ngSubmit)="onSubmit()" [formGroup]="form">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="userName">Name</label>
+              <input type="text" class="form-control" id="userName" placeholder="name"  name="name" formControlName="name" [ngClass]="{'is-invalid': form.get('name')?.invalid &&form.get('name')?.touched,'is-valid':form.get('name')?.valid && form.get('name')?.touched}" />
+            </div>
+            <div class="form-group">
+              <label for="email">Email address</label>
+              <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email"  name="email" formControlName="email" [ngClass]="{'is-invalid': form.get('email')?.invalid &&form.get('email')?.touched,'is-valid':form.get('email')?.valid && form.get('email')?.touched}"  />
+              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            </div>
+            <!-- Affichage du mot de passe généré automatiquement -->
+            <div class="form-group">
+              <label for="password">Password </label>
+              <input type="password" class="form-control" id="password" name="password" formControlName="password"  [ngClass]="{'is-invalid': form.get('password')?.invalid &&form.get('password')?.touched,'is-valid':form.get('password')?.valid && form.get('password')?.touched
+            }"/>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="firstName">Poste</label>
+              <input type="text" class="form-control" id="firstName" placeholder="Poste"  name="poste" formControlName="poste" [ngClass]="{'is-invalid': form.get('poste')?.invalid &&form.get('poste')?.touched,'is-valid':form.get('poste')?.valid && form.get('poste')?.touched}"/>
+            </div>
+            <div class="form-group">
+              <label for="lastName">Location</label>
+              <input type="text" class="form-control" id="lastName" placeholder="Location"  name="location" formControlName="location"  [ngClass]="{'is-invalid': form.get('location')?.invalid &&form.get('location')?.touched,'is-valid':form.get('location')?.valid && form.get('location')?.touched}" />
+            </div>
+            <!-----
+            <div class="form-group">
+              <label for="MSCList">MSC List</label>
+              <select class="form-control" id="MSCList"  name="MSCList" required>
+                <option value="MSC CHARGUIA">MSC CHARGUIA</option>
+                <option value="MSC Manouba">MSC Manouba</option>
+                <option value="MSC MGHIRA">MSC MGHIRA</option>
+                <option value="MSC SID RZIG">MSC SID RZIG</option>
+                <option value="MSC SFAX">MSC SFAX</option>
+                <option value="MSC GABES">MSC GABES</option>
+                <option value="MSC SOUSSE">MSC SOUSSE</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="matricule">Matricule</label>
+              <input type="text" class="form-control" id="matricule"  name="matricule" required />
+            </div>
+            --->
+          </div>
+        </div>
+        <div class="align-right">
+          <button class="btn btn-primary" type="submit" [disabled]="form.invalid">
+            ADD
+          </button>
+        </div>
+
+      </form>
+    </app-card>
+  </div>
+</div>

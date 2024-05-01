@@ -1,0 +1,19 @@
+<div class="row">
+  <div class="col-sm-12">
+    <app-card cardTitle="User Details" [options]="false">
+      <ul *ngIf="user">
+        <li><strong>Username:</strong> {{ user.name }}</li>
+        <li><strong>Email:</strong> {{ user.email }}</li>
+        <li><strong>Poste:</strong>{{ user.poste }} </li>
+        <li><strong>Location:</strong> {{ user.location }}</li>
+
+      </ul>
+      <div *ngIf="!user">
+        <p>User not found!</p>
+      </div>
+      <button class="btn btn-primary" *ngIf="user" (click)="editUser(user.id)">Edit</button>
+      <button class="btn btn-danger" *ngIf="user" (click)="onDeleteClick(user.id)">Delete</button>
+    </app-card>
+  </div>
+</div>
+

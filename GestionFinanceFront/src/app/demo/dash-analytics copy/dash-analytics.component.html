@@ -1,0 +1,40 @@
+<div class="row">
+    <div class="col-md-4" *ngFor="let item of temperatureAnalyticsData">
+        <app-card [headerClass]="'classe-du-header'" [options]="false" [hidHeader]="true" [customHeader]="false">
+            <div class="card-head d-flex align-items-center ">
+                <i class="fa fa-building icon-bleu d-block f-40 mr-2"></i>
+                <a  (click)="viewMsc(item.mscName)" >{{item?.mscName}}</a>
+            </div>
+            <i class="fa fa-bell" style="float: right;"></i>
+            <div class="card-body">
+                <ul>
+                    <li *ngFor="let room of item.rooms">
+                        <span  >{{room?.roomName}}</span> <span> Max: {{room?.maxTemperatureValue}}</span>
+                        <span> Min:
+                            {{room.minTemperatureValue}}</span>
+                    <li   *ngFor="let room of item.rooms">
+                        <span (click)= "viewZone(item.roomName)">{{room?.roomName}}</span> <span > Max: {{room?.maxTemperatureValue}}</span>
+                        <span> Min: {{room.minTemperatureValue}}</span>
+                            <span>
+                                <button *ngIf="room?.alertsCount!==0" (click)="redirectToAlerts()" type="button" class="btn btn-icon btn-outline-danger btn-sm d-inline-flex">
+                                    <i title="Notification" class="icon feather icon-bell" [ngStyle]="{'color': 'red'}"></i>
+                                <span *ngIf="room?.alertsCount!==0" class="badge bg-light text-dark">{{alerts?.length}}
+
+                                </span>
+                            </button>
+                        </span>
+                    </li>
+                </ul>
+            </div>
+        </app-card>
+
+    </div>
+
+    <div >
+    <a   (click)="redirectToTemperature()" type="button" class="btn btn-outline-info"  >See more for temperatures</a>
+    </div>
+</div>
+
+
+
+
