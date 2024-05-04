@@ -12,14 +12,14 @@ const routes: Routes = [
   
  
   {
-    path: '',
+    path: 'analytics',
     component: AdminComponent, 
     children: [
-      {
-        path: '',
-        redirectTo: '/analytics',
-        pathMatch: 'full'
-      },
+      // {
+      //   path: '',
+      //   redirectTo: '/analytics',
+      //   pathMatch: 'full'
+      // },
      
       {
         path: 'analytics',
@@ -86,6 +86,11 @@ const routes: Routes = [
     path: '',
     component: GuestComponent,
     children: [
+      {
+        path: '',
+        redirectTo: 'auth/signin',
+        pathMatch: 'full'
+      },
       {
         path: 'auth/signup',
         loadComponent: () => import('./demo/authentication/sign-up/sign-up.component')

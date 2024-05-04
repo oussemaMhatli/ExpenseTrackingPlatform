@@ -18,24 +18,31 @@ export class AuthService {
 
     async signup(dto: CreateUserDto) {
         const { email, password, firstName, lastName } = dto;
-    
+
         try {
             const user = await this.userService.findByEmail(email);
             if (user) {
                 throw new BadRequestException('Email already exists');
             }
-    
+
             const hashedPassword = await this.hashPassword(password);
-    
-            await this.userService.create({
+
+            // Créer un nouvel utilisateur avec le mot de passe haché
+            const newUser = await this.userService.create({
                 firstName,
                 lastName,
                 email,
                 password: hashedPassword,
             });
-            
-    
-            return { message: 'Signup success' };
+
+            // Générer un token pour le nouvel utilisateur
+            const token = await this.signToken({
+                userId: newUser.id,
+                email: newUser.email,
+            });
+
+            // Retourner le message de succès et le token
+            return { message: 'Signup success', token };
         } catch (error) {
             throw error;
         }
