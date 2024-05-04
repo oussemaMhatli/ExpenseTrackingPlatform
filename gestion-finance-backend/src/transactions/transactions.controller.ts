@@ -9,6 +9,7 @@ import { AuthGuard } from '../auth/auth.guard'
 export class TransactionsController {
   constructor(private readonly transactionsService: TransactionsService) {}
 
+  @UseGuards(AuthGuard)
   @Post('create')
   create(@Body() createTransactionDto: CreateTransactionDto) {
     return this.transactionsService.create(createTransactionDto);
@@ -19,17 +20,19 @@ export class TransactionsController {
   findAll() {
     return this.transactionsService.findAll();
   }
-
+  @UseGuards(AuthGuard)
   @Get('trans/:id')
   findOne(@Param('id') id: string) {
     return this.transactionsService.findOne(id);
   }
 
+  @UseGuards(AuthGuard)
   @Patch('trans/:id')
   update(@Param('id') id: string, @Body() updateTransactionDto: UpdateTransactionDto) {
     return this.transactionsService.update(id, updateTransactionDto);
   }
 
+  @UseGuards(AuthGuard)
   @Delete('trans/:id')
   remove(@Param('id') id: string) {
     return this.transactionsService.remove(id);
