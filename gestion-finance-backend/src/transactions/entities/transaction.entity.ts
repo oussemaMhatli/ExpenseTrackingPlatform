@@ -5,4 +5,8 @@ export class Transaction {
     montant: number;
     date: Date;
     description: string;
-    tags: Types.ObjectId[];}
+    userId: string;
+    tags: Types.ObjectId[];
+
+
+}

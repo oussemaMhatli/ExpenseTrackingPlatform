@@ -1,53 +1,136 @@
 
-    <div class="row">
-      <div class="col-xl-12">
-        <app-card cardTitle="Basic Table" [options]="false" blockClass="table-border-style">
-          <div class="table-responsive">
-            <table class="table">
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Nom</th>
-                  <th>Prenom</th>
-                  <th>Fonction</th>
-                  <th>Email</th>
-                  <th>Date d'inscrption</th>
-                  <th>Edition</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>Mark</td>
-                  <td>Otto</td>
-                  <td>@mdo</td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <th scope="row">2</th>
-                  <td>Jacob</td>
-                  <td>Thornton</td>
-                  <td>@fat</td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <th scope="row">3</th>
-                  <td>Larry</td>
-                  <td>the Bird</td>
-                  <td>@twitter</td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
-              </tbody>
-            </table>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg ">
+      <!-- Container wrapper -->
+      <div class="container">
+        <!-- Navbar brand -->
+
+
+
+
+        <!-- Collapsible wrapper -->
+        <div class="collapse navbar-collapse" id="navbarButtonsExample">
+          <!-- Left links -->
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="#"></a>
+            </li>
+          </ul>
+          <!-- Left links -->
+
+          <div class="d-flex align-items-center">
+            <button data-mdb-ripple-init type="button" class="btn btn-success  px-3 me-2" routerLink="/auth/signup">
+              Login
+            </button>
+            <button data-mdb-ripple-init type="button" class="btn btn-success me-3" routerLink="/auth/signun">
+              Sign up for free
+            </button>
+
           </div>
-        </app-card>
-            
-    
-  </div>
-</div>
+        </div>
+        <!-- Collapsible wrapper -->
+      </div>
+      <!-- Container wrapper -->
+    </nav>
+    <!-- Navbar -->
+      <!-- Section: Design Block -->
+  <section class="sectionR">
+      <!-- Jumbotron -->
+      <div class="px-4 py-5 px-md-5 text-center text-lg-start" >
+        <div class="container">
+          <div class="row gx-lg-5 align-items-center">
+            <div class="col-lg-6 mb-5 mb-lg-0">
+              <h1 class="my-5 display-3 fw-bold ls-tight">
+                The best offer <br />
+                <span class="text-success">for your business</span>
+              </h1>
+              <p style="color: hsl(217, 10%, 50.8%)">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Eveniet, itaque accusantium odio, soluta, corrupti aliquam
+                quibusdam tempora at cupiditate quis eum maiores libero
+                veritatis? Dicta facilis sint aliquid ipsum atque?
+              </p>
+            </div>
+
+            <div class="col-lg-6 mb-5 mb-lg-0">
+              <div class="card">
+                <div class="card-body py-5 px-md-5">
+                  <form #f="ngForm" (ngSubmit)="submitHandler(f)" >
+                    <!-- 2 column grid layout with text inputs for the first and last names -->
+                    <div class="row">
+                      <div class="col-md-6 mb-4">
+
+
+                        <div class="form-floating mb-3">
+                          <input type="text" class="form-control" id="floatingInput" ngModel name="firstName" placeholder="name@example.com">
+                          <label for="floatingInput">First name</label>
+                        </div>
+
+                      </div>
+                      <div class="col-md-6 mb-4">
+
+                        <div class="form-floating mb-3">
+                          <input type="text" class="form-control" id="floatingInput" ngModel name="lastName" placeholder="name@example.com">
+                          <label for="floatingInput">Last name</label>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Email input -->
+                    <div class="form-floating mb-3">
+                      <input type="email" class="form-control" id="floatingInput" ngModel name="email" placeholder="name@example.com">
+                      <label for="floatingInput">Email address</label>
+                    </div>
+
+                    <!-- Password input -->
+                    <div class="form-floating">
+                      <input type="password" class="form-control" id="floatingPassword" ngModel name="password" placeholder="Password">
+                      <label for="floatingPassword">Password</label>
+                    </div>
+
+                    <!-- Checkbox -->
+                    <div class="form-check d-flex justify-content-center mb-4">
+                      <input class="form-check-input me-2" type="checkbox" value="" id="form2Example33" checked />
+                      <label class="form-check-label" for="form2Example33">
+                        Subscribe to our newsletter
+                      </label>
+                    </div>
+
+                    <!-- Submit button -->
+
+                    <div class="d-grid gap-2">
+                      <button class="btn btn-dark" type="submit">Sign up</button>
+                    </div>
+
+                    <!-- Register buttons -->
+                    <div class="text-center">
+                      <p>or sign up with:</p>
+                      <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn  btn-floating mx-1">
+                          <i class="bi bi-meta"></i>
+                      </button>
+
+                      <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn  btn-floating mx-1">
+                          <i class="bi bi-google"></i>
+                      </button>
+
+                      <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn  btn-floating mx-1">
+                          <i class="bi bi-twitter-x"></i>
+                      </button>
+
+                      <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn  btn-floating mx-1">
+                          <i class="bi bi-github"></i>
+                      </button>
+                    </div>
+                  </form>
+                  <p class="mb-5 pb-lg-2 text-success" > have an account? <a routerLink="/auth/signin"
+                      >Register here</a></p>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Jumbotron -->
+    </section>
+    <!-- Section: Design Block -->
