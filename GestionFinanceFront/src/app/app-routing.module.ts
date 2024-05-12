@@ -6,21 +6,22 @@ import { Routes, RouterModule } from '@angular/router';
 import { AdminComponent } from './theme/layout/admin/admin.component';
 import { GuestComponent } from './theme/layout/guest/guest.component';
 import DashAnalyticsComponent from './demo/dash-analytics copy/dash-analytics.component';
+import { TransactionComponent } from './demo/transaction/transaction.component';
 
 const routes: Routes = [
   { path: 'dashboard ', component: DashAnalyticsComponent },
-  
- 
+
+
   {
-    path: 'analytics',
-    component: AdminComponent, 
+    path: '',
+    component: AdminComponent,
     children: [
-      // {
-      //   path: '',
-      //   redirectTo: '/analytics',
-      //   pathMatch: 'full'
-      // },
-     
+      {
+        path: '',
+        redirectTo: '/analytics',
+        pathMatch: 'full'
+      },
+
       {
         path: 'analytics',
         loadComponent: () => import('./demo/dashboard/dash-analytics/dash-analytics.component')
@@ -31,7 +32,7 @@ const routes: Routes = [
 
       },
 
-      { path: 'temperature', 
+      { path: 'temperature',
       loadChildren: () => import('./demo/temperature-centre/temperature.module').then(m => m.TemperatureModule)
 
     },
@@ -44,12 +45,12 @@ const routes: Routes = [
       path: 'Remote',
       loadComponent: () => import('./demo/remote/remote.component')
     },
-    
+
      {
       path: 'alerts',
       loadChildren: () => import('./demo/alerts/alerts.module').then((m) => m.AlertsModule)
     },
-    
+
       {
         path: 'component',
         loadChildren: () => import('./demo/ui-element/ui-basic.module').then((m) => m.UiBasicModule)
@@ -61,9 +62,9 @@ const routes: Routes = [
       {
         path: 'site-configurations',
         loadChildren: () => import('./demo/site-configurations/site-configurations/site-configurations.module').then(m => m.SiteConfigurationsModule)
-  
+
       },
-      
+
       {
         path: 'chart',
         loadComponent: () => import('./demo/chart & map/core-apex/core-apex.component')
@@ -79,7 +80,9 @@ const routes: Routes = [
       {
         path: 'sample-page',
         loadComponent: () => import('./demo/sample-page/sample-page.component')
-      }
+      },
+      {path:"transaction",component:TransactionComponent}
+
     ]
   },
   {

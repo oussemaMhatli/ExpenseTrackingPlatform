@@ -27,6 +27,7 @@ import { SharedModule } from './theme/shared/shared.module';
 import { HttpClientModule } from '@angular/common/http';
 import { SiteConfigurationsComponent } from './demo/site-configurations/site-configurations/site-configurations.component';
 import { ToastrModule } from 'ngx-toastr';
+import { TransactionComponent } from './demo/transaction/transaction.component';
 
 
 @NgModule({
@@ -48,7 +49,8 @@ import { ToastrModule } from 'ngx-toastr';
     NavCollapseComponent,
     NavGroupComponent,
     SiteConfigurationsComponent,
-    
+    TransactionComponent,
+
 
 
 

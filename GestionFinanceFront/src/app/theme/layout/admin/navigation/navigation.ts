@@ -27,6 +27,13 @@ export const NavigationItems: NavigationItem[] = [
     children: [
       {
         id: 'dashboard',
+        title: 'Ajouter transaction',
+        type: 'item',
+        url: '/transaction',
+        icon: 'feather icon-home'
+      },
+      {
+        id: 'dashboard',
         title: 'Dashboard',
         type: 'item',
         url: '/analytics',
@@ -67,10 +74,10 @@ export const NavigationItems: NavigationItem[] = [
         url: '/alerts',
         icon: 'feather icon-bell'
       }
-      
+
 
     ]
-    
+
   },
   {
     id: 'settings',
@@ -226,7 +233,7 @@ export const NavigationItems: NavigationItem[] = [
       }
     ]
   },
- 
+
   {
     id: 'other',
     title: 'Other',
