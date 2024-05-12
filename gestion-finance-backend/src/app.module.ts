@@ -7,6 +7,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { TransactionsModule } from './transactions/transactions.module';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
+import { TagModule } from './tag/tag.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { AuthModule } from './auth/auth.module';
     TransactionsModule,
     UserModule,
     AuthModule,
+    TagModule,
 
   ],
   controllers: [AppController],

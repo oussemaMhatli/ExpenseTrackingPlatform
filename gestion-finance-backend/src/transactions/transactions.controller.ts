@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, NotFoundException } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, NotFoundException, HttpException, HttpStatus } from '@nestjs/common';
 import { TransactionsService } from './transactions.service';
 import { CreateTransactionDto } from './dto/create-transaction.dto';
 import { UpdateTransactionDto } from './dto/update-transaction.dto';
@@ -38,17 +38,22 @@ export class TransactionsController {
   remove(@Param('id') id: string) {
     return this.transactionsService.remove(id);
   }
-
-  @Get('user/:userId')
-  async findByUserId(@Param('userId') userId: string): Promise<Transaction[]> {
+  @Post(':transactionId/tags/:tagId')
+  async addTagToTransaction(
+    @Param('transactionId') transactionId: string,
+    @Param('tagId') tagId: string,
+  ) {
     try {
-      const transactions = await this.transactionsService.findByUserId(userId);
-      return transactions;
+      const updatedTransaction = await this.transactionsService.addTagToTransaction(transactionId, tagId);
+      return updatedTransaction;
     } catch (error) {
+      console.log(error.response)
       if (error instanceof NotFoundException) {
+        // Transaction not found
         throw new NotFoundException(error.message);
       } else {
-        throw error;
+        // Other errors
+        throw new HttpException(`Tag with ID ${tagId} is already associated with the transaction`, HttpStatus.BAD_REQUEST);
       }
     }
   }
