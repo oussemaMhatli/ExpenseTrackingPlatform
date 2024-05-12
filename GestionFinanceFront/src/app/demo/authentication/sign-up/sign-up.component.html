@@ -55,14 +55,14 @@
             <div class="col-lg-6 mb-5 mb-lg-0">
               <div class="card">
                 <div class="card-body py-5 px-md-5">
-                  <form>
+                  <form #f="ngForm" (ngSubmit)="submitHandler(f)" >
                     <!-- 2 column grid layout with text inputs for the first and last names -->
                     <div class="row">
                       <div class="col-md-6 mb-4">
 
 
                         <div class="form-floating mb-3">
-                          <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com">
+                          <input type="text" class="form-control" id="floatingInput" ngModel name="firstName" placeholder="name@example.com">
                           <label for="floatingInput">First name</label>
                         </div>
 
@@ -70,7 +70,7 @@
                       <div class="col-md-6 mb-4">
 
                         <div class="form-floating mb-3">
-                          <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com">
+                          <input type="text" class="form-control" id="floatingInput" ngModel name="lastName" placeholder="name@example.com">
                           <label for="floatingInput">Last name</label>
                         </div>
                       </div>
@@ -78,13 +78,13 @@
 
                     <!-- Email input -->
                     <div class="form-floating mb-3">
-                      <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                      <input type="email" class="form-control" id="floatingInput" ngModel name="email" placeholder="name@example.com">
                       <label for="floatingInput">Email address</label>
                     </div>
 
                     <!-- Password input -->
                     <div class="form-floating">
-                      <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+                      <input type="password" class="form-control" id="floatingPassword" ngModel name="password" placeholder="Password">
                       <label for="floatingPassword">Password</label>
                     </div>
 
@@ -99,7 +99,7 @@
                     <!-- Submit button -->
 
                     <div class="d-grid gap-2">
-                      <button class="btn btn-dark" type="button">Sign up</button>
+                      <button class="btn btn-dark" type="submit">Sign up</button>
                     </div>
 
                     <!-- Register buttons -->

@@ -90,6 +90,11 @@ const routes: Routes = [
     component: GuestComponent,
     children: [
       {
+        path: '',
+        redirectTo: 'auth/signin',
+        pathMatch: 'full'
+      },
+      {
         path: 'auth/signup',
         loadComponent: () => import('./demo/authentication/sign-up/sign-up.component')
       },
