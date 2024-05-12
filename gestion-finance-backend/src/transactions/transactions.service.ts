@@ -40,4 +40,15 @@ export class TransactionsService {
       throw new NotFoundException(`Transaction with ID ${id} not found`);
     }
   }
+  async findByUserId(userId: string): Promise<Transaction[]> {
+    // Find transactions by userId
+    const transactions = await this.transactionModel.find({ userId }).exec();
+    
+    // Check if any transactions are found
+    if (!transactions || transactions.length === 0) {
+      throw new NotFoundException(`No transactions found for user with ID ${userId}`);
+    }
+    
+    return transactions;
+  }
 }

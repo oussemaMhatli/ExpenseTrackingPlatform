@@ -3,4 +3,6 @@ export class Transaction {
     date: Date;
     categorie: string;
     description: string;
+    userId: string;
+
 }
