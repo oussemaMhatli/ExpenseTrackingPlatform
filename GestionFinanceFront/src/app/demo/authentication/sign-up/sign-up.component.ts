@@ -25,7 +25,8 @@ export default class SignUpComponent {
         const decoded = jwtDecode(res['token']);
         console.log('decoded Token', decoded);
         localStorage.setItem('access_token', res['token']);
-        this.router.navigateByUrl('/analytics/analytics');
+        this.router.navigateByUrl('auth/signin');
+        alert("register successfully ")
       },
       error:(error)=>{
         console.log(error);
