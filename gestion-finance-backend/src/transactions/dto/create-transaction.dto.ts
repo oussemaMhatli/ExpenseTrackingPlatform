@@ -6,4 +6,5 @@ export class CreateTransactionDto {
     categorie: string;
     description: string;
     tags: Types.ObjectId[];
+    
 }
