@@ -1,7 +1,11 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+/* eslint-disable prettier/prettier */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { TransactionsService } from './transactions.service';
 import { CreateTransactionDto } from './dto/create-transaction.dto';
 import { UpdateTransactionDto } from './dto/update-transaction.dto';
+import { Transaction } from './entities/transaction.entity';
+import { ApiOperation, ApiQuery } from '@nestjs/swagger';
 
 @Controller('transactions')
 export class TransactionsController {
@@ -22,6 +26,8 @@ export class TransactionsController {
     return this.transactionsService.findOne(id);
   }
 
+  
+
   @Patch('trans/:id')
   update(@Param('id') id: string, @Body() updateTransactionDto: UpdateTransactionDto) {
     return this.transactionsService.update(id, updateTransactionDto);
@@ -31,4 +37,7 @@ export class TransactionsController {
   remove(@Param('id') id: string) {
     return this.transactionsService.remove(id);
   }
+
+  
+ 
 }
