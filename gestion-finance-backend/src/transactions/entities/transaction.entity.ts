@@ -7,6 +7,7 @@ export class Transaction {
     description: string;
     userId: string;
     tags: Types.ObjectId[];
+    categorie: string;
 
 
 }
