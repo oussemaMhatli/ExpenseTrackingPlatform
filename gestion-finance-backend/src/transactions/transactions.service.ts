@@ -3,7 +3,7 @@ import { CreateTransactionDto } from './dto/create-transaction.dto';
 import { UpdateTransactionDto } from './dto/update-transaction.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Transaction } from './entities/transaction.entity';
-import { Model } from 'mongoose';
+import { Model, Types } from 'mongoose';
 
 @Injectable()
 export class TransactionsService {
@@ -39,5 +39,22 @@ export class TransactionsService {
     if (!deletedTransaction) {
       throw new NotFoundException(`Transaction with ID ${id} not found`);
     }
+  }
+  async addTagToTransaction(transactionId: string, tagId: string): Promise<Transaction> {
+    const transaction = await this.transactionModel.findById(transactionId).exec();
+    if (!transaction) {
+      throw new NotFoundException(`Transaction with ID ${transactionId} not found`);
+    }
+    const objectIdTagId = new Types.ObjectId(tagId);
+
+    if (transaction.tags.includes(objectIdTagId)) {
+      throw new Error(`Tag with ID ${tagId} is already associated with the transaction`);
+    }
+
+    transaction.tags.push(objectIdTagId);
+
+    const updatedTransaction = await transaction.save();
+
+    return updatedTransaction;
   }
 }

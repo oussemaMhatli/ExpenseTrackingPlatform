@@ -5,5 +5,7 @@ export const TransactionSchema = new Schema({
     categorie: String,
     description: String,
   date: { type: Date, default: Date.now() },
+  tags: [{ type: Schema.Types.ObjectId, ref: 'Tag' }]
+
 });
 
