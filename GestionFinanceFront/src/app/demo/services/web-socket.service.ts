@@ -6,17 +6,17 @@ import  io from 'socket.io-client';
   providedIn: 'root'
 })
 export class WebSocketService {
-  private socket: any;
+  //private socket: any;
 
-  constructor() {
+ /* constructor() {
     this.socket = io('http://localhost:6079');
 
-   }
-   onTemperatureData(): Observable<any> {
+   }*/
+   /*onTemperatureData(): Observable<any> {
     return new Observable(observer => {
       this.socket.on('temperature_data', (data: any) => {
         observer.next(data);
       });
     });
-  }
+  }*/
 }

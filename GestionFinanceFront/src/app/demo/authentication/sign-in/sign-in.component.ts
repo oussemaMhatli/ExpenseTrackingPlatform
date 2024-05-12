@@ -30,7 +30,7 @@ export default class SignInComponent {
         const decoded = jwtDecode(response['token']);
         console.log('decoded Token', decoded);
         localStorage.setItem('access_token', response['token']);
-        this.router.navigateByUrl('/analytics/analytics');
+        this.router.navigateByUrl('/transaction');
       },
       error:(error)=>{
         console.log(error);
@@ -41,9 +41,9 @@ export default class SignInComponent {
 
     })
   }
-  
 
-  
+
+
   onReset(f: NgForm) {
     f.reset();
   }

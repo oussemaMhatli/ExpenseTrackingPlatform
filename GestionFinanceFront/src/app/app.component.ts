@@ -1,3 +1,4 @@
+/* eslint-disable @angular-eslint/no-empty-lifecycle-method */
 // Angular Import
 import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
@@ -14,7 +15,7 @@ export class AppComponent implements OnInit {
 
   // life cycle event
   ngOnInit() {
-    this.router.events.subscribe((evt) => {
+    /*this.router.events.subscribe((evt) => {
       if (!(evt instanceof NavigationEnd)) {
         return;
       }
@@ -23,5 +24,7 @@ export class AppComponent implements OnInit {
     this.socketService.onTemperatureData().subscribe((data: any) => {
       console.log('New temperature data:', data);
       // Handle the new temperature data here
-    });  }
+    });  */
+
+  }
 }

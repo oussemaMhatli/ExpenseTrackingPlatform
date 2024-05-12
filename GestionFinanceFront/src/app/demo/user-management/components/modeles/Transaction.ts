@@ -1,5 +1,5 @@
 export class transaction{
-  //    private _id:number;
+      public _id!:string;
   //     private _date:Date;
 
 
@@ -7,12 +7,14 @@ export class transaction{
   public categorie!: string;
   public description!: string;
   public date!: Date;
+  public userId!:string
 
-  constructor(montant: number, categorie: string, description: string, date: Date) {
+  constructor(montant: number, categorie: string, description: string, date: Date,userId:string) {
     this.montant = montant;
     this.categorie = categorie;
     this.description = description;
     this.date = date;
+    this.userId=userId
   }
 
 }
