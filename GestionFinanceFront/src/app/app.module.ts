@@ -28,6 +28,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { SiteConfigurationsComponent } from './demo/site-configurations/site-configurations/site-configurations.component';
 import { ToastrModule } from 'ngx-toastr';
 import { TransactionComponent } from './demo/transaction/transaction.component';
+import { TagsComponent } from './demo/tags/tags.component';
+import { DateSortPipePipe } from './pipes/date-sort-pipe.pipe';
+import { TrieMontantPipe } from './pipes/trie-montant.pipe';
 
 
 @NgModule({
@@ -50,6 +53,9 @@ import { TransactionComponent } from './demo/transaction/transaction.component';
     NavGroupComponent,
     SiteConfigurationsComponent,
     TransactionComponent,
+    TagsComponent,
+    DateSortPipePipe,
+    TrieMontantPipe,
 
 
 
