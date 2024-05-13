@@ -1,28 +1,40 @@
 <h1>Ajouter transaction</h1>
 <br>
+<div *ngIf="f.submitted && f.invalid" class="alert alert-danger mt-3">
+  Veuillez remplir correctement tous les champs du formulaire !
+</div>
 <form #f="ngForm" (ngSubmit)="addtransaction(f.value)">
+
   <div class="row">
+    <div class="alert alert-danger" *ngIf="inpdescription.invalid && inpdescription.touched">Veuillez saisir une Description </div>
+    <div class="alert alert-danger" *ngIf="categorie.invalid && categorie.touched">Veuillez saisir une categorie </div>
+    <div class="alert alert-danger" *ngIf="montant.invalid && montant.touched">Veuillez saisir une montant </div>
+    <div class="alert alert-danger" *ngIf="date.invalid && date.touched">Veuillez saisir une date </div>
+
     <div class="col">
       <div class="form-floating mb-3">
-        <input type="text" class="form-control" id="description" placeholder="Description" ngModel name="description">
+        <input type="text" class="form-control" #inpdescription="ngModel" id="description" placeholder="Description" ngModel name="description" required>
         <label for="description">Description</label>
+
       </div>
+
     </div>
     <div class="col">
       <div class="form-floating mb-3">
-        <input type="text" class="form-control" id="categorie" placeholder="Categorie" ngModel name="categorie">
+        <input type="text" class="form-control" id="categorie" placeholder="Categorie" ngModel name="categorie" #categorie="ngModel"
+          required>
         <label for="categorie">Categorie</label>
       </div>
     </div>
     <div class="col">
       <div class="form-floating mb-3">
-        <input type="number" class="form-control" id="montant" placeholder="Montant" ngModel name="montant">
+        <input type="number" class="form-control" id="montant" placeholder="Montant" ngModel name="montant" #montant="ngModel" required>
         <label for="montant">Montant</label>
       </div>
     </div>
     <div class="col">
       <div class="form-floating mb-3">
-        <input type="datetime-local" class="form-control" id="date" placeholder="Date" ngModel name="date">
+        <input type="datetime-local" class="form-control" id="date" placeholder="Date" ngModel name="date" #date="ngModel" required>
         <label for="date">Date</label>
       </div>
     </div>
