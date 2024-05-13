@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, NotFoundException, HttpException, HttpStatus, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, NotFoundException, HttpException, HttpStatus, Query } from '@nestjs/common';
 import { TransactionsService } from './transactions.service';
 import { CreateTransactionDto } from './dto/create-transaction.dto';
 import { UpdateTransactionDto } from './dto/update-transaction.dto';
@@ -106,8 +106,20 @@ export class TransactionsController {
     return this.transactionsService.getUserExpensesByCategory(userId, category);
   }
 
-  @Get('expensesGroupedBycategories')
-  async getUserExpensesByCategories(@Query('userId') userId: string): Promise<Map<string, number>> {
-    return this.transactionsService.getUserExpensesByCategories(userId);
+  @Get('exbencegroupedbycat')
+  async getUserExpensesByCategories(@Query('userId') userId: string): Promise<{ [category: string]: number }>  {
+    return this.transactionsService.getUserExpensesByCategoryh(userId);
   }
+
+  @Get('exbencegroupedbydat')
+async getMonthlyExpensesByYear(@Query('userId') userId: string): Promise<number[]> {
+  return this.transactionsService.getMonthlyExpensesByYear(userId);
 }
+@Get('gettotalexpense')
+async getTotalExpensesForUser(@Query('userId') userId: string): Promise<number> {
+  return this.transactionsService.getTotalExpensesForUser(userId);
+}
+
+
+}
+

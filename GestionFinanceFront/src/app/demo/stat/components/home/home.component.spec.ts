@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CoreApexComponent } from './core-apex.component';
+import { HomeComponent } from './home.component';
 
-describe('CoreApexComponent', () => {
-  let component: CoreApexComponent;
-  let fixture: ComponentFixture<CoreApexComponent>;
+describe('HomeComponent', () => {
+  let component: HomeComponent;
+  let fixture: ComponentFixture<HomeComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [CoreApexComponent]
+      declarations: [HomeComponent]
     });
-    fixture = TestBed.createComponent(CoreApexComponent);
+    fixture = TestBed.createComponent(HomeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

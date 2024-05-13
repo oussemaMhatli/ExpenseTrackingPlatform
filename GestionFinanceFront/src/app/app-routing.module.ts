@@ -5,9 +5,9 @@ import { Routes, RouterModule } from '@angular/router';
 // project import
 import { AdminComponent } from './theme/layout/admin/admin.component';
 import { GuestComponent } from './theme/layout/guest/guest.component';
-import DashAnalyticsComponent from './demo/dash-analytics copy/dash-analytics.component';
 import { TransactionComponent } from './demo/transaction/transaction.component';
 import { TagsComponent } from './demo/tags/tags.component';
+import DashAnalyticsComponent from './demo/dash-analytics/dash-analytics.component';
 
 const routes: Routes = [
   { path: 'dashboard ', component: DashAnalyticsComponent },
@@ -23,10 +23,10 @@ const routes: Routes = [
         pathMatch: 'full'
       },
 
-      // {
-      //   path: 'analytics',
-      //   loadComponent: () => import('./demo/dashboard/dash-analytics/dash-analytics.component')
-      // },
+       {
+         path: 'dash',
+         loadChildren: () => import('./demo/stat/stat.module').then(m => m.StatModule)
+        },
       // {
       //   path: 'home',
       //   loadComponent: () => import('./demo/dash-analytics copy/dash-analytics.component')

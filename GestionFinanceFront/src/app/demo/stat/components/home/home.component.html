@@ -1,0 +1,37 @@
+<div class="row">
+  <div class="col-md-4">
+    <app-card [hidHeader]="true" cardClass="bg-c-blue order-card">
+      <h6 class="text-white">Expanse</h6>
+      <h2 class="text-end text-white"
+        ><i class="feather icon-shopping-cart float-start"></i><span>{{ totlExpanse }}</span>
+      </h2>
+      <p class="m-b-0"
+        >total expanse<span class="float-end">DT</span></p
+      >
+    </app-card>
+  </div>
+  <div class="col-md-4">
+    <app-card [hidHeader]="true" cardClass="bg-c-red order-card">
+      <h6 class="text-white">expanse this month</h6>
+      <h2 class="text-end text-white"
+        ><i class="feather icon-shopping-cart float-start"></i><span>12</span>
+      </h2>
+      <p class="m-b-0"
+        >budget<span class="float-end">DT</span></p
+      >
+    </app-card>
+  </div>
+  <div class="col-md-4">
+    <app-card [hidHeader]="true" cardClass="bg-c-green order-card">
+      <h6 class="text-white">budget</h6>
+      <h2 class="text-end text-white"
+        ><i class="feather icon-shopping-cart float-start"></i><span>13</span>
+      </h2>
+      <p class="m-b-0"
+        >total budget<span class="float-end">DT</span></p
+      >
+    </app-card>
+  </div>
+</div>
+<app-barchart-months
+></app-barchart-months>

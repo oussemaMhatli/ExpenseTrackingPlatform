@@ -25,6 +25,14 @@ export const NavigationItems: NavigationItem[] = [
     type: 'group',
     icon: 'icon-group',
     children: [
+
+      {
+        id: 'dashboard',
+        title: 'dashboard',
+        type: 'item',
+        url: '/dash',
+        icon: 'feather icon-home'
+      },
       {
         id: 'dashboard',
         title: 'transaction',
