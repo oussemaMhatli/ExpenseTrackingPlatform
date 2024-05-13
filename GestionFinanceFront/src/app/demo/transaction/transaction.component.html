@@ -1,4 +1,4 @@
-<h1>Ajouter transaction</h1>
+<h2>Ajouter transaction</h2>
 <br>
 <div *ngIf="f.submitted && f.invalid" class="alert alert-danger mt-3">
   Veuillez remplir correctement tous les champs du formulaire !
@@ -6,14 +6,17 @@
 <form #f="ngForm" (ngSubmit)="addtransaction(f.value)">
 
   <div class="row">
-    <div class="alert alert-danger" *ngIf="inpdescription.invalid && inpdescription.touched">Veuillez saisir une Description </div>
+    <div class="alert alert-danger" *ngIf="inpdescription.invalid && inpdescription.touched">Veuillez saisir une
+      Description </div>
     <div class="alert alert-danger" *ngIf="categorie.invalid && categorie.touched">Veuillez saisir une categorie </div>
     <div class="alert alert-danger" *ngIf="montant.invalid && montant.touched">Veuillez saisir une montant </div>
     <div class="alert alert-danger" *ngIf="date.invalid && date.touched">Veuillez saisir une date </div>
+    <div class="alert alert-danger" *ngIf="tag.invalid && tag.touched">Veuillez saisir une tag </div>
 
     <div class="col">
       <div class="form-floating mb-3">
-        <input type="text" class="form-control" #inpdescription="ngModel" id="description" placeholder="Description" ngModel name="description" required>
+        <input type="text" class="form-control" #inpdescription="ngModel" id="description" placeholder="Description"
+          ngModel name="description" required>
         <label for="description">Description</label>
 
       </div>
@@ -21,23 +24,50 @@
     </div>
     <div class="col">
       <div class="form-floating mb-3">
-        <input type="text" class="form-control" id="categorie" placeholder="Categorie" ngModel name="categorie" #categorie="ngModel"
-          required>
-        <label for="categorie">Categorie</label>
+        <select class="form-select" aria-label="Default select example" ngModel name="categorie" #categorie="ngModel">
+          <option selected value="">Categorie</option>
+          <option value="Nourriture">Nourriture</option>
+          <option value="Logement">Logement</option>
+          <option value="Transport">Transport</option>
+          <option value="Divertissement">Divertissement</option>
+          <option value="Santé">Santé</option>
+          <option value="Éducation">Éducation</option>
+          <option value="Vêtements">Vêtements</option>
+          <option value="Factures">Factures</option>
+          <option value="Épargne">Épargne</option>
+
+
+
+
+
+        </select>
+
       </div>
     </div>
     <div class="col">
       <div class="form-floating mb-3">
-        <input type="number" class="form-control" id="montant" placeholder="Montant" ngModel name="montant" #montant="ngModel" required>
+        <input type="number" class="form-control" id="montant" placeholder="Montant" ngModel name="montant"
+          #montant="ngModel" required>
         <label for="montant">Montant</label>
       </div>
     </div>
     <div class="col">
       <div class="form-floating mb-3">
-        <input type="datetime-local" class="form-control" id="date" placeholder="Date" ngModel name="date" #date="ngModel" required>
+        <input type="datetime-local" class="form-control" id="date" placeholder="Date" ngModel name="date"
+          #date="ngModel" required>
         <label for="date">Date</label>
       </div>
     </div>
+
+    <div class="col">
+      <select class="form-select" multiple aria-label="Tags" ngModel name="tags" #tag="ngModel" required size="2">
+        <option *ngFor="let tag of tabletags" [value]="tag">{{ tag.name }}</option>
+      </select>
+      <label for="tags">Tags</label>
+
+
+    </div>
+
   </div>
   <div class="row">
     <div class="col d-flex justify-content-end">
@@ -46,8 +76,45 @@
   </div>
 </form>
 
+
+
 <hr>
-<h1>Liste des transactions</h1>
+<br>
+<h2>trie par date</h2>
+<div *ngIf="tr.submitted && tr.invalid" class="alert alert-danger mt-3">
+  Veuillez remplir correctement tous les champs du formulaire !
+</div>
+<div class="alert alert-danger" *ngIf="startDate.invalid && startDate.touched">Veuillez saisir une date debut </div>
+<div class="alert alert-danger" *ngIf="endDate.invalid && endDate.touched">Veuillez saisir une date fin </div>
+
+<form #tr="ngForm" (ngSubmit)="chercherpardated(tr.value)">
+  <div class="row">
+    <div class="col">
+      <div class="form-floating mb-3">
+        <input type="datetime-local" class="form-control" id="date" placeholder="Date" ngModel name="startDate"
+          #startDate="ngModel" required>
+        <label for="date">Date début</label>
+      </div>
+    </div>
+    <div class="col">
+      <div class="form-floating mb-3">
+        <input type="datetime-local" class="form-control" id="date" placeholder="Date" ngModel name="endDate"
+          #endDate="ngModel" required>
+        <label for="date">Date fin</label>
+      </div>
+    </div>
+
+  </div>
+  <div class="row">
+    <div class="col d-flex justify-content-end"> <input type="submit" class="btn btn-primary" id="date"
+        value="chercher">
+    </div>
+  </div>
+</form>
+
+<hr>
+<br>
+<h2>Liste des transactions</h2>
 <br>
 <div *ngIf="oldtransaction.length === 0; else transactionsTable">
   <h3 style="display: flex; justify-content: center;">Aucune transaction enregistrée pour le moment !</h3>
@@ -60,17 +127,47 @@
       <tr>
         <th scope="col">Description</th>
         <th scope="col">Categorie</th>
-        <th scope="col">Montant</th>
-        <th scope="col">Date</th>
-        <th scope="col">Actions</th>
+        <th scope="col" (click)="toggleSortByMontant()">Montant
+          <div *ngIf="sortBymontant===false">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+              class="bi bi-arrow-bar-up" viewBox="0 0 16 16">
+              <path fill-rule="evenodd"
+                d="M8 10a.5.5 0 0 0 .5-.5V3.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 3.707V9.5a.5.5 0 0 0 .5.5m-7 2.5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13a.5.5 0 0 1-.5-.5" />
+            </svg>
+          </div>
+          <div *ngIf="sortBymontant===true">
+            <svg #trie xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+              class="bi bi-arrow-bar-down" viewBox="0 0 16 16">
+              <path fill-rule="evenodd"
+                d="M1 3.5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13a.5.5 0 0 1-.5-.5M8 6a.5.5 0 0 1 .5.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 0 1 .708-.708L7.5 12.293V6.5A.5.5 0 0 1 8 6" />
+            </svg>
+          </div>
+        </th>
+        <th scope="col" (click)="toggleSortByDate()">Date
+          <div *ngIf="sortByDate===false">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+              class="bi bi-arrow-bar-up" viewBox="0 0 16 16">
+              <path fill-rule="evenodd"
+                d="M8 10a.5.5 0 0 0 .5-.5V3.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 3.707V9.5a.5.5 0 0 0 .5.5m-7 2.5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13a.5.5 0 0 1-.5-.5" />
+            </svg>
+          </div>
+          <div *ngIf="sortByDate===true">
+            <svg #trie xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+              class="bi bi-arrow-bar-down" viewBox="0 0 16 16">
+              <path fill-rule="evenodd"
+                d="M1 3.5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13a.5.5 0 0 1-.5-.5M8 6a.5.5 0 0 1 .5.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 0 1 .708-.708L7.5 12.293V6.5A.5.5 0 0 1 8 6" />
+            </svg>
+          </div>
+        </th>
+        <th scope="col"></th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let item of oldtransaction">
+      <tr *ngFor="let item of oldtransaction | dateSortPipe: sortByDate | trieMontant:sortBymontant">
         <td>{{ item.description }}</td>
         <td>{{ item.categorie }}</td>
         <td>{{ item.montant }}</td>
-        <td>{{ item.date }}</td>
+        <td>{{ item.date | date:'medium'}}</td>
         <td>
           <button class="btn btn-danger mr-2" (click)="supprimer(item._id)">Supprimer</button>
         </td>

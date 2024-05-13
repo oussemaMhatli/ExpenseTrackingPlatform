@@ -1,0 +1,43 @@
+
+<div class="row">
+
+  <div class="col">
+    <form #f="ngForm" (ngSubmit)="addtag(f.value)">
+
+    <h3>Ajouter Tag</h3>
+
+    <div class="form-floating mb-3">
+      <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com" #name="ngModel" ngModel name="name">
+      <label for="floatingInput">ecrire nom du tag</label>
+    </div>
+    <div class="d-flex justify-content-end">
+    <input type="submit" value="Ajouter Tag" class="btn btn-primary" >
+  </div>
+</form>
+
+  </div>
+  <div class="col" >
+    <div *ngIf="tabletags.length===0; else tagTable">
+      <h3>List des Tags</h3>
+
+      Aucun tags pour le moment !
+    </div>
+    <ng-template #tagTable>
+
+      <h3>List des Tags</h3>
+      <ol class="list-group list-group-numbered">
+        <li class="list-group-item d-flex justify-content-between" *ngFor="let item of tabletags">
+
+
+           {{item.name}} <button type="submit" class="btn btn-danger " (click)="deletetag(item._id)">Supprimer</button>
+
+
+          </li>
+
+      </ol>
+    </ng-template>
+    </div>
+
+
+</div>
+
