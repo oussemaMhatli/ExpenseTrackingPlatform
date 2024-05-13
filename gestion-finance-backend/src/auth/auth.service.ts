@@ -39,7 +39,7 @@ export class AuthService {
 
             // Générer un token pour le nouvel utilisateur
             const token = await this.signToken({
-                userId: newUser.id,
+                userId: newUser._id,
                 email: newUser.email,
             });
 
@@ -66,7 +66,7 @@ export class AuthService {
             }
     
             const token = await this.signToken({
-                userId: user.id,
+                userId: user._id,
                 email: user.email,
             });
     

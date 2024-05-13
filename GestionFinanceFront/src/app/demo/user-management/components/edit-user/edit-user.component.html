@@ -4,33 +4,30 @@
           <form [formGroup]="form">
             <div class="form-group">
       <div class="col-xl-12">
-        <app-card cardTitle="list user" [options]="false" blockClass="table-border-style">
+        <app-card cardTitle="UserProfile" [options]="false" blockClass="table-border-style">
       <div class="table-responsive">
 
         <table class="table">
           <thead>
             <tr>
               <th>id</th>
-              <th>name</th>
-              <th>poste</th>
-              <th>Email</th>
-              <th>location</th>
-              <th>password</th>
-              <th>Action</th>
+              <th>firstName</th>
+              <th>lastName</th>
+              <th>Email</th> 
+             
             </tr>
           </thead>
           <tbody>
             <tr>
               <th scope="row">{{ id }}</th>
-              <td><input type="text" class="form-control" name="name" formControlName="name"     [ngClass]="{'is-invalid': form.get('name')?.invalid &&form.get('name')?.touched,'is-valid':form.get('name')?.valid && form.get('name')?.touched}"></td>
-              <td><input type="text" class="form-control" name="poste" formControlName="poste" [ngClass]="{'is-invalid': form.get('poste')?.invalid &&form.get('poste')?.touched,'is-valid':form.get('poste')?.valid && form.get('poste')?.touched}"></td>
-              <td><input type="text" class="form-control" name="email" formControlName="email" [ngClass]="{'is-invalid': form.get('email')?.invalid &&form.get('email')?.touched,'is-valid':form.get('email')?.valid && form.get('email')?.touched}"></td>
-              <td><input type="text" class="form-control" name="location" formControlName="location" [ngClass]="{'is-invalid': form.get('location')?.invalid &&form.get('location')?.touched,'is-valid':form.get('location')?.valid && form.get('location')?.touched}"></td>
-              <td><input type="password" class="form-control" name="password" formControlName="password" [ngClass]="{'is-invalid': form.get('password')?.invalid &&form.get('password')?.touched,'is-valid':form.get('password')?.valid && form.get('password')?.touched
-              }"></td>
+              <td><input type="text" class="form-control" name="name" formControlName="name"  [value]="user.firstName"></td>
+              <td><input type="text" class="form-control" name="poste" formControlName="poste"  [value]="user.lastName"></td>
+              <td><input type="text" class="form-control" name="email" formControlName="email"  [value]="user.email"></td>
+              
+              
 
 
-<td><button class="btn btn-primary" [disabled]="form.invalid" (click)="updateUser()">Save</button></td>
+<!-- <td><button class="btn btn-primary" [disabled]="form.invalid" (click)="updateUser()">Save</button></td> -->
             </tr>
 
           </tbody>

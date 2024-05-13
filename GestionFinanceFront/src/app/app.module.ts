@@ -28,6 +28,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { SiteConfigurationsComponent } from './demo/site-configurations/site-configurations/site-configurations.component';
 import { ToastrModule } from 'ngx-toastr';
 import { TransactionComponent } from './demo/transaction/transaction.component';
+import { UserProfileComponent } from './demo/user-profile/user-profile.component';
 
 
 @NgModule({
@@ -50,6 +51,7 @@ import { TransactionComponent } from './demo/transaction/transaction.component';
     NavGroupComponent,
     SiteConfigurationsComponent,
     TransactionComponent,
+    UserProfileComponent,
 
 
 
