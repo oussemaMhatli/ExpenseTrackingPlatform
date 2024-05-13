@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from '../models/User';
@@ -11,8 +12,14 @@ export class AuthService {
   constructor(private http:HttpClient) { }
   Link ="http://localhost:3000/auth";
   url="http://localhost:3000/user/email/"
+  url2="http://localhost:3000/user"
+
   jwtHelper = new JwtHelperService(); // Instantiate JwtHelperService
 
+  getuserparemail(email: string) {
+    return this.http.get(this.url +email);
+  }
+  
 
   signin(u:User){
     return this.http.post(this.Link+"/signin",u);
@@ -22,9 +29,17 @@ export class AuthService {
   }
 
 
-getuserparemail(email:string){
- return this.http.get(this.url+email)
+  getById(id:string){
+    return this.http.get(`${this.url2}/${id}`);
+  }
+  
 
+
+
+
+
+updateUser(id: number, user: User) {
+  return this.http.patch<User>(`${this.url2}/${id}`, user);
 }
 
 

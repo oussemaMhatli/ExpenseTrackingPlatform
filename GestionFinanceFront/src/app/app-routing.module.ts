@@ -7,7 +7,14 @@ import { AdminComponent } from './theme/layout/admin/admin.component';
 import { GuestComponent } from './theme/layout/guest/guest.component';
 import DashAnalyticsComponent from './demo/dash-analytics copy/dash-analytics.component';
 import { TransactionComponent } from './demo/transaction/transaction.component';
+
+import { EditUserComponent } from './demo/user-management/components/edit-user/edit-user.component';
+import { linkGuardGuard } from './link-guard.guard';
+import { UserProfileComponent } from './demo/user-profile/user-profile.component';
+import { NgIf } from '@angular/common';
+
 import { TagsComponent } from './demo/tags/tags.component';
+
 
 const routes: Routes = [
   { path: 'dashboard ', component: DashAnalyticsComponent },
@@ -66,6 +73,26 @@ const routes: Routes = [
 
       // },
 
+
+      {
+        path: 'chart',
+        loadComponent: () => import('./demo/chart & map/core-apex/core-apex.component')
+      },
+      {
+        path: 'forms',
+        loadComponent: () => import('./demo/forms & tables/form-elements/form-elements.component')
+      },
+      {
+        path: 'tables',
+        loadComponent: () => import('./demo/forms & tables/tbl-bootstrap/tbl-bootstrap.component')
+      },
+      {
+        path: 'sample-page',
+        loadComponent: () => import('./demo/sample-page/sample-page.component')
+      },
+      
+      {path:"transaction",component:TransactionComponent,canActivate: [linkGuardGuard]},
+      {path:"UserProfile",component:UserProfileComponent,canActivate: [linkGuardGuard]}
       // {
       //   path: 'chart',
       //   loadComponent: () => import('./demo/chart & map/core-apex/core-apex.component')
@@ -84,6 +111,7 @@ const routes: Routes = [
       // },
       {path:"transaction",component:TransactionComponent},
       {path:"tags",component:TagsComponent}
+
 
     ]
   },

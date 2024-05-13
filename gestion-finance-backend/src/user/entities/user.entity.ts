@@ -1,8 +1,9 @@
 /* eslint-disable prettier/prettier */
 export class User {
-  id:string;
+  // id:string;
   firstName: string;
   lastName: string;
   email: string;
   password: string;
+    _id: string;
 }
