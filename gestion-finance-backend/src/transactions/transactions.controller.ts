@@ -56,7 +56,7 @@ export class TransactionsController {
       }
     }
   }
-  @Get('date-range/userId')
+  @Get('date-range/:userId')
   async findTransactionsByDateRange(
     @Query('startDate') startDate: Date,
     @Query('endDate') endDate: Date,
