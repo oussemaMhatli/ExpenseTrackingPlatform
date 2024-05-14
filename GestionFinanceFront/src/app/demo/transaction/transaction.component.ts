@@ -25,9 +25,12 @@ export class TransactionComponent implements OnInit {
   useremail!: string;
   iduser: any;
   oldtransaction: transaction[] = [];
+  transactionparrangdate: transaction[] = [];
+
   tabletags:Tags[]=[]
   sortByDate: boolean = true;
   sortBymontant: boolean = true;
+  noResultat:any
 
 
 
@@ -99,8 +102,7 @@ export class TransactionComponent implements OnInit {
     })
 
 
-    console.log(this.add
-    );
+
 
   }
 
@@ -168,19 +170,18 @@ toggleSortByMontant() {
 
 
 chercherpardated(form: any) {
-  let formData = new FormData();
   if(form.startDate > form.endDate){
    alert('La date de début est postérieure à la date de fin');
   }
   else{
-
-    formData.append("startDate", form.startDate);
-    formData.append("endDate", form.endDate);
-    formData.append("userId", this.iduser);
-
-    this.service.chercherpardate(formData).subscribe({
-      next : (data)=>{
+    this.service.chercherpardate(this.iduser,form.startDate,form.endDate).subscribe({
+      next:(data:any)=>{
         console.log(data);
+        this.transactionparrangdate=data
+        if(this.transactionparrangdate.length==0)this.noResultat=true;
+        else this.noResultat=false;
+        console.log(this.noResultat);
+
       },
       error:(err)=>{
         console.log(err);
