@@ -12,6 +12,7 @@ import { linkGuardGuard } from './link-guard.guard';
 import { UserProfileComponent } from './demo/user-profile/user-profile.component';
 
 import { TagsComponent } from './demo/tags/tags.component';
+import { BudgetComponent } from './demo/budget/budget.component';
 
 
 const routes: Routes = [
@@ -88,8 +89,10 @@ const routes: Routes = [
         path: 'sample-page',
         loadComponent: () => import('./demo/sample-page/sample-page.component')
       },
-      
+
       {path:"transaction",component:TransactionComponent,canActivate: [linkGuardGuard]},
+      {path:"Budget",component:BudgetComponent,canActivate: [linkGuardGuard]},
+
       {path:"UserProfile",component:UserProfileComponent,canActivate: [linkGuardGuard]},
       // {
       //   path: 'chart',

@@ -39,6 +39,13 @@ export const NavigationItems: NavigationItem[] = [
         url: '/tags',
         icon: 'feather icon-home'
       },
+      {
+        id: 'dashboard',
+        title: 'Budget',
+        type: 'item',
+        url: '/Budget',
+        icon: 'feather icon-home'
+      },
       // {
       //   id: 'dashboard',
       //   title: 'Dashboard',

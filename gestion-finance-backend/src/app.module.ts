@@ -8,6 +8,7 @@ import { TransactionsModule } from './transactions/transactions.module';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { TagModule } from './tag/tag.module';
+import { BudgetModule } from './budget/budget.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { TagModule } from './tag/tag.module';
     UserModule,
     AuthModule,
     TagModule,
+    BudgetModule,
 
   ],
   controllers: [AppController],
