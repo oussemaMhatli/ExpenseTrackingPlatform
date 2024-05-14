@@ -1,0 +1,25 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div class="card-body">
+  <div class="row" >
+    <div class="col">
+      <input type="number" class="form-control" id="month" placeholder="choose month" [(ngModel)]="month">
+
+    </div>
+    <div class="col">
+      <button type="button" class="btn btn-success" (click)="generatechart()">Generate</button>
+    </div>
+
+
+  </div>
+</div>
+<div id="chart">
+  <apx-chart
+    [series]="chartOptions.series"
+    [chart]="chartOptions.chart"
+    [xaxis]="chartOptions.xaxis"
+    [dataLabels]="chartOptions.dataLabels"
+    [grid]="chartOptions.grid"
+    [stroke]="chartOptions.stroke"
+    [title]="chartOptions.title"
+  ></apx-chart>
+</div>

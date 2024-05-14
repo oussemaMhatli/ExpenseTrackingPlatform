@@ -56,11 +56,11 @@ export class TransactionsController {
       }
     }
   }
-  @Get('date-range/userId')
+  @Get('date-range')
   async findTransactionsByDateRange(
     @Query('startDate') startDate: Date,
     @Query('endDate') endDate: Date,
-    @Param('userId') userId: string
+    @Query('userId') userId: string
   ): Promise<Transaction[]> {
     return this.transactionsService.findTransactionsByDateRange(userId,startDate, endDate);
   }
@@ -119,7 +119,14 @@ async getMonthlyExpensesByYear(@Query('userId') userId: string): Promise<number[
 async getTotalExpensesForUser(@Query('userId') userId: string): Promise<number> {
   return this.transactionsService.getTotalExpensesForUser(userId);
 }
+@Get('getmostExpansecat')
+async getmostExpanse(@Query('userId') userId: string): Promise<any> {
+  return this.transactionsService.getMostExpensiveCategory(userId);
+}
 
-
+@Get('exbencegroupedbycatmonth')
+async getExpensesBycatMonth(@Query('userId') userId: string,@Query('month') month: string): Promise<any> {
+  return this.transactionsService.getUserExpensesByCategoryhMonth(userId,+month);
+}
 }
 

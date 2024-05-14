@@ -41,7 +41,7 @@ export class TransactionserviceService {
 
   chercherpardate(form:any)
   {
-    return this.http.get(this.apiurl+"date-range/userId",form)
+    return this.http.get(this.apiurl+"date-range",form)
   }
 
 

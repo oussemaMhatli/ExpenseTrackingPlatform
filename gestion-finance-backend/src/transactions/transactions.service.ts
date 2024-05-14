@@ -163,5 +163,51 @@ async getMonthlyExpensesByYear(userId: string): Promise<number[]> {
     return totalExpenses[0].totalExpenses;
   }
   
+  async getMostExpensiveCategory(userId: string): Promise<{ category: string; totalExpenses: number } | null> {
+    const expensesByCategory = await this.getUserExpensesByCategoryh(userId);
   
+    // Find the most expensive category
+    let mostExpensiveCategory: string | null = null;
+    let maxExpenses = 0;
+  
+    for (const category of Object.keys(expensesByCategory)) {
+      if (expensesByCategory[category] > maxExpenses) {
+        maxExpenses = expensesByCategory[category];
+        mostExpensiveCategory = category;
+      }
+    }
+  
+    if (mostExpensiveCategory) {
+      return { category: mostExpensiveCategory, totalExpenses: maxExpenses };
+    } else {
+      return null; // Return null if no expenses found for the user
+    }
+  }
+  async getUserExpensesByCategoryhMonth(userId: string, month: number): Promise<{ [category: string]: number }> {
+    console.log('transactions')
+
+    const transactions = await this.transactionModel.aggregate([
+        { 
+            $match: { 
+                userId: new Types.ObjectId(userId),
+                $expr: { $eq: [{ $month: "$date" }, month] } // Match transactions by userId and month
+            } 
+        },
+        { 
+            $group: { 
+                _id: '$categorie', 
+                totalExpenses: { $sum: '$montant' } 
+            } 
+        }, // Group transactions by category and calculate the total expenses
+    ]).exec();
+    console.log('transactions', transactions)
+    const expensesByCategory: { [category: string]: number } = {};
+    transactions.forEach((result: { _id: string; totalExpenses: number }) => {
+        expensesByCategory[result._id] = result.totalExpenses;
+    });
+
+    return expensesByCategory;
+}
+
+
 }
