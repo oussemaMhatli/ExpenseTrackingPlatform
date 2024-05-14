@@ -1,0 +1,78 @@
+<br>
+<hr>
+
+
+
+
+
+<div class="row">
+
+  <div class="col">
+    <h1>Ajouter Budget</h1>
+    <form #f="ngForm" (ngSubmit)="addBudget(f.value)">
+
+    <div class="row">
+      <div *ngIf="f.submitted && f.invalid" class="alert alert-danger mt-3">
+        Veuillez remplir correctement tous les champs du formulaire !
+      </div>
+      <div class="alert alert-danger" *ngIf="namebudget.invalid && namebudget.touched">Veuillez saisir nom du budget
+      </div>
+      <div class="alert alert-danger" *ngIf="montant.invalid && montant.touched">Veuillez saisir montat </div>
+      <div class="col">
+        <div class="form-floating mb-3">
+          <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com" ngModel
+            name="namebudget" #namebudget="ngModel" required>
+          <label for="floatingInput">Nom du Budget</label>
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-floating mb-3">
+          <input type="number" class="form-control" id="floatingInput" placeholder="name@example.com" ngModel
+            name="montant" #montant="ngModel" required>
+          <label for="floatingInput">montat du Budget</label>
+        </div>
+      </div>
+
+    </div>
+    <div class="row">
+
+      <div class="col ">
+        <input type="submit" class="btn btn-primary" value="Ajouter Budget">
+      </div>
+    </div>
+  </form>
+
+  </div>
+
+
+<div class="col">
+
+  <h1>budget</h1>
+  <ul class="list-group">
+    <li class="list-group-item" >
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Nom du Budget</th>
+          <th>montat du Budget</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody *ngFor="let item of oldbadget">
+        <tr>
+          <td>
+
+
+            {{item.namebudget}}</td>
+          <td>{{item.montant}}</td>
+          <td><input type="submit" value="modifier" class="btn btn-success"></td>
+          <td><input type="submit" value="supprimer" class="btn btn-danger"></td>
+
+        </tr>
+      </tbody>
+    </table>
+    </li>
+
+  </ul>
+</div>
+</div>
