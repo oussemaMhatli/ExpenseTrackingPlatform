@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { UserService } from '../services/user.service';
-import { User } from '../modeles/user.model';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { AuthService } from 'src/app/services/auth.service';
+import { User } from 'src/app/models/User';
 
 @Component({
   selector: 'app-edit-user',
@@ -13,55 +13,60 @@ import { ToastrService } from 'ngx-toastr';
 export class EditUserComponent implements OnInit {
   user!: User ;
   id!:string;
-  form!: FormGroup;
+  form!: FormGroup;  
+  decodedToken: any;
+
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private userService: UserService,
+    private userService: AuthService,
     private activeRoute:ActivatedRoute,
     private fb: FormBuilder,
-    private toastr: ToastrService,
+    private toastr: ToastrService,private auth:AuthService
   ) { }
 
-  ngOnInit(): void {
-    this.id = this.activeRoute.snapshot.params['id'];
-    this.getUserById(this.id)
- this.initForm()
+  ngOnInit(): void {  
+    this.decodeToken(); // Décoder le jeton en premier
   }
-
-  initForm(): void {
-    this.form = this.fb.group({
-      email: ["", [Validators.required, Validators.email]], // Initialize email with an empty string
-      name: ["", [Validators.required]], // Initialize name with an empty string
-      poste: ["", [Validators.required]], // Initialize poste with an empty string
-      password: ["", [Validators.required]], // Initialize password with an empty string
-      location: ["", [Validators.required]], // Initialize location with an empty string
-    });
-
-
+  
+  decodeToken() {
+    this.decodedToken = this.auth.decodetoken();
+    console.log('Decoded Token:', this.decodedToken);
+  
+    // Une fois le jeton décodé, appelez getUserById
+    if (this.decodedToken && this.decodedToken.email) {
+      this.getUserById(this.decodedToken.email);
+    } else {
+      console.error('Unable to get user details: Decoded token or email is undefined.');
+    }
   }
-
-getUserById(id:string) {
-  this.userService.getUserById(id).subscribe(res=>{
-    this.user = res;
-    console.log(this.user);
-    this.form.patchValue({
-      email: this.user.email,
-      name: this.user.name,
-      poste: this.user.poste,
-      location: this.user.location,
-      password: this.user.password,
-
+  
+  getUserById(email: string) {
+    this.userService.getuserparemail(email).subscribe(res => {
+      this.user = res;
+      console.log(this.user.email);
     });
+  }
+  
+  // initForm(): void {
+  //   this.form = this.fb.group({
+  //     email: ["", [Validators.required, Validators.email]], // Initialize email with an empty string
+  //     name: ["", [Validators.required]], // Initialize name with an empty string
+  //     poste: ["", [Validators.required]], // Initialize poste with an empty string
+  //     password: ["", [Validators.required]], // Initialize password with an empty string
+  //     location: ["", [Validators.required]], // Initialize location with an empty string
+  //   });
 
-  })
-}
-updateUser(){
-  this.userService.updateUser(this.id,this.form.value).subscribe(res=>{
-    this.toastr.success("updatet successfully !", 'success');
-  },error=>{
-    this.toastr.error("server error", 'Ooops');
-  })
-}
+
+  // }
+
+
+// updateUser(){
+//   this.userService.updateUser(this.id,this.form.value).subscribe(res=>{
+//     this.toastr.success("updatet successfully !", 'success');
+//   },error=>{
+//     this.toastr.error("server error", 'Ooops');
+//   })
+// }
 }
