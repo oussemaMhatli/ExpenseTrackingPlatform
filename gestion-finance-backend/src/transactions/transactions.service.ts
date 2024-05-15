@@ -210,4 +210,65 @@ async getMonthlyExpensesByYear(userId: string): Promise<number[]> {
 }
 
 
+async getMonthlyExpensesByCategory(userId: string): Promise<{ name: string; data: number[] }[]> {
+  const currentYear = new Date().getFullYear();
+
+  // Initialize an array to hold expenses for each month
+  const expensesByCategoryMap: { [category: string]: number[] } = {};
+
+  // Get total expenses for each category for the entire year
+  const totalExpensesByCategory = await this.transactionModel.aggregate([
+    { 
+      $match: { 
+        userId: new Types.ObjectId(userId),
+        date: { $gte: new Date(currentYear, 0, 1) },
+      } 
+    },
+    { 
+      $group: { 
+        _id: '$categorie', 
+        totalExpenses: { $sum: '$montant' } 
+      } 
+    },
+  ]).exec();
+
+  // Initialize category data arrays
+  totalExpensesByCategory.forEach((result: { _id: string; totalExpenses: number }) => {
+    expensesByCategoryMap[result._id] = new Array(12).fill(0);
+  });
+
+  // Get expenses for each month with transactions
+  const transactions = await this.transactionModel.aggregate([
+    { 
+      $match: { 
+        userId: new Types.ObjectId(userId),
+        date: { $gte: new Date(currentYear, 0, 1) },
+      } 
+    },
+    { 
+      $group: { 
+        _id: { month: { $month: '$date' }, category: '$categorie' }, 
+        totalExpenses: { $sum: '$montant' } 
+      } 
+    }, // Group transactions by month and category and calculate the total expenses
+  ]).exec();
+
+  // Update expenses for each category and month
+  transactions.forEach((result: { _id: { month: number; category: string }; totalExpenses: number }) => {
+    const monthIndex = result._id.month - 1;
+    const category = result._id.category;
+    expensesByCategoryMap[category][monthIndex] = result.totalExpenses;
+  });
+
+  // Format data as required
+  const formattedData = Object.keys(expensesByCategoryMap).map((category: string) => ({
+    name: category,
+    data: expensesByCategoryMap[category],
+  }));
+
+  return formattedData;
+}
+
+
+
 }

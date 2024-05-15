@@ -49,4 +49,9 @@ url="http://localhost:3000/transactions/"
 
     return this.http.get<any>(`${this.url}exbencegroupedbycatmonth`,{params:params});
   }
+  expensebyyearcat(userId: string): Observable<any> {
+    let params = new HttpParams().set('userId', userId);
+
+    return this.http.get<any>(`${this.url}expensebyyearcat`,{params:params});
+  }
 }

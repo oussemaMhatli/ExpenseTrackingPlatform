@@ -128,5 +128,9 @@ async getmostExpanse(@Query('userId') userId: string): Promise<any> {
 async getExpensesBycatMonth(@Query('userId') userId: string,@Query('month') month: string): Promise<any> {
   return this.transactionsService.getUserExpensesByCategoryhMonth(userId,+month);
 }
+@Get('expensebyyearcat')
+async getMonthlyExpensesByCategory(@Query('userId') userId: string): Promise<any> {
+  return this.transactionsService.getMonthlyExpensesByCategory(userId);
+}
 }
 

@@ -63,7 +63,7 @@
       <select class="form-select" multiple aria-label="Tags" ngModel name="tags" #tag="ngModel" required size="2">
         <option *ngFor="let tag of tabletags" [value]="tag">{{ tag.name }}</option>
       </select>
-      <label for="tags">Tags</label>
+        <label for="tags">Tags</label>
 
 
     </div>
@@ -110,7 +110,47 @@
         value="chercher">
     </div>
   </div>
+
+  <div *ngIf="transactionparrangdate.length === 0 || noResultat; else tabletransaction">
+   <p class="d-flex justify-content-center">Aucun résultat pour cette recherche</p>
+
+  </div>
+  <ng-template #tabletransaction>
+
+
+  <div class="row">
+    <table class="table table-striped table-hover text-center">
+      <thead>
+        <tr>
+          <th scope="col">Description</th>
+          <th scope="col">Categorie</th>
+          <th scope="col">Montant
+          </th>
+          <th scope="col">Date</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of transactionparrangdate">
+          <td>{{ item.description }}</td>
+          <td>{{ item.categorie }}</td>
+          <td>{{ item.montant }}</td>
+          <td>{{ item.date | date:'medium'}}</td>
+          <td>
+            <button class="btn btn-danger mr-2" (click)="supprimer(item._id)">Supprimer</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  </ng-template>
 </form>
+
+
+
+
+
+
 
 <hr>
 <br>

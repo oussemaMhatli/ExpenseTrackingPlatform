@@ -10,6 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { PdfComponent } from './components/pdf/pdf.component';
 import { LinechartcatComponent } from './components/linechartcat/linechartcat.component';
 import { LinechartcatMonthComponent } from './components/linechartcat-month/linechartcat-month.component';
+import { BarmultipleComponent } from './components/barmultiple/barmultiple.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { LinechartcatMonthComponent } from './components/linechartcat-month/line
         BarchartMonthsComponent,
         PdfComponent,
         LinechartcatComponent,
-        LinechartcatMonthComponent
+        LinechartcatMonthComponent,
+        BarmultipleComponent
     ],
     imports: [
         CommonModule,
