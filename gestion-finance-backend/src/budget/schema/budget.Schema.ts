@@ -6,7 +6,7 @@ export const  budgetSchema=new Schema({
     montant: Number,
     namebudget:String,
     //dateDebut: Date,
-    //dateFin: Date,
+    dateFin: Date,
     userId: { type: Schema.Types.ObjectId, ref: 'User' } ,// Reference to the User schema
 
 })

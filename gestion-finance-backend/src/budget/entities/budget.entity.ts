@@ -5,7 +5,6 @@ import { Types } from "mongoose";
 export class Budget {
     montant: number;
     namebudget:string
-    //datedeb: Date;
-    //datefin: Date;
+    dateFin: Date;
     user: Types.ObjectId[];
 }

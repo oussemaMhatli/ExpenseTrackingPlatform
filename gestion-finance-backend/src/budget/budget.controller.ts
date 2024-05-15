@@ -9,6 +9,7 @@ export class BudgetController {
   constructor(private readonly budgetService: BudgetService) {}
 
   @Post('create')
+  
   async create(@Body() createBudgetDto: CreateBudgetDto) {
     try {
       return await this.budgetService.create(createBudgetDto);

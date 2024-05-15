@@ -56,6 +56,7 @@ export class BudgetComponent {
 
     if (this.f.valid) {
 
+
         budget.userId=this.userid
 
         this.servicebudget.ajouterbudget(budget).subscribe({
@@ -63,6 +64,8 @@ export class BudgetComponent {
             console.log(data);
 
            alert("ajouter budget successfully")
+           this.ngOnInit()
+
 
           },
           error:(err)=> {
@@ -78,6 +81,21 @@ export class BudgetComponent {
       console.log("erreur");
 
     }
+  }
+
+
+  removebudget(id:string){
+    this.servicebudget.removebudget(id).subscribe({
+      next:(data)=>{
+        alert("supprimer successfully")
+        console.log(data);
+        this.ngOnInit()
+
+      },
+      error:(err)=>{
+        console.log(err);
+      }
+    })
   }
 
 }
