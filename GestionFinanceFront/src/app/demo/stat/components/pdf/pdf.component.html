@@ -1,0 +1,32 @@
+<div #pdfTemplate>
+  <h1 style="text-align: center;">Expanse rapport</h1>
+
+  <table class="table ">
+    <thead>
+      <tr>
+        <th scope="col">Description</th>
+        <th scope="col">Categorie</th>
+        <th scope="col">Date</th>
+        <th scope="col">Montant</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of expanses">
+        <td>{{ item.description }}</td>
+        <td>{{ item.categorie }}</td>
+        <td>{{ item.date | date }}</td>
+        <td>{{ item.montant }}</td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="3" style="text-align: right;">Total:</td>
+        <td>{{ totalMontant }}</td>
+      </tr>
+    </tfoot>
+  </table>
+</div>
+<div style="display: flex;justify-content: center;">
+  <button type="button" class="btn btn-danger" (click)="download()">Download</button>
+
+</div>

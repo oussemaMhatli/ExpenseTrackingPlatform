@@ -5,13 +5,13 @@ import { Routes, RouterModule } from '@angular/router';
 // project import
 import { AdminComponent } from './theme/layout/admin/admin.component';
 import { GuestComponent } from './theme/layout/guest/guest.component';
-import DashAnalyticsComponent from './demo/dash-analytics copy/dash-analytics.component';
 import { TransactionComponent } from './demo/transaction/transaction.component';
 
 import { linkGuardGuard } from './link-guard.guard';
 import { UserProfileComponent } from './demo/user-profile/user-profile.component';
 
 import { TagsComponent } from './demo/tags/tags.component';
+import DashAnalyticsComponent from './demo/dash-analytics/dash-analytics.component';
 import { BudgetComponent } from './demo/budget/budget.component';
 
 
@@ -29,10 +29,10 @@ const routes: Routes = [
         pathMatch: 'full'
       },
 
-      // {
-      //   path: 'analytics',
-      //   loadComponent: () => import('./demo/dashboard/dash-analytics/dash-analytics.component')
-      // },
+       {
+         path: 'dash',
+         loadChildren: () => import('./demo/stat/stat.module').then(m => m.StatModule)
+        },
       // {
       //   path: 'home',
       //   loadComponent: () => import('./demo/dash-analytics copy/dash-analytics.component')
@@ -73,10 +73,7 @@ const routes: Routes = [
       // },
 
 
-      {
-        path: 'chart',
-        loadComponent: () => import('./demo/chart & map/core-apex/core-apex.component')
-      },
+
       {
         path: 'forms',
         loadComponent: () => import('./demo/forms & tables/form-elements/form-elements.component')
@@ -85,10 +82,7 @@ const routes: Routes = [
         path: 'tables',
         loadComponent: () => import('./demo/forms & tables/tbl-bootstrap/tbl-bootstrap.component')
       },
-      {
-        path: 'sample-page',
-        loadComponent: () => import('./demo/sample-page/sample-page.component')
-      },
+
 
       {path:"transaction",component:TransactionComponent,canActivate: [linkGuardGuard]},
       {path:"Budget",component:BudgetComponent,canActivate: [linkGuardGuard]},

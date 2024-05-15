@@ -2,7 +2,6 @@
 // Angular Import
 import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { WebSocketService } from './demo/services/web-socket.service';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +10,7 @@ import { WebSocketService } from './demo/services/web-socket.service';
 })
 export class AppComponent implements OnInit {
   // constructor
-  constructor(private router: Router,private socketService:WebSocketService) {}
+  constructor(private router: Router) {}
 
   // life cycle event
   ngOnInit() {

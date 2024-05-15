@@ -117,16 +117,158 @@ export class TransactionsService {
     const totalExpenses = transactions.reduce((total, transaction) => total + transaction.montant, 0);
     return totalExpenses;
   }
-  async getUserExpensesByCategories(userId: string): Promise<Map<string, number>> {
-    const transactions = await this.transactionModel.find({ userId: userId }).exec();
-  
-    const expensesByCategory = transactions.reduce((map, transaction) => {
-      const { categorie, montant } = transaction;
-      const currentExpense = map.get(categorie) || 0;
-      map.set(categorie, currentExpense + montant);
-      return map;
-    }, new Map<string, number>());
+  async getUserExpensesByCategoryh(userId: string): Promise<{ [category: string]: number }> {
+    console.log('transactions')
+
+    const transactions = await this.transactionModel.aggregate([
+      { $match: { userId: new Types.ObjectId(userId) } }, // Match transactions by userId
+      { $group: { _id: '$categorie', totalExpenses: { $sum: '$montant' } } }, // Group transactions by category and calculate the total expenses
+    ]).exec();
+     console.log('transactions',transactions)
+    const expensesByCategory: { [category: string]: number } = {};
+    transactions.forEach((result: { _id: string; totalExpenses: number }) => {
+      expensesByCategory[result._id] = result.totalExpenses;
+    });
   
     return expensesByCategory;
   }
+async getMonthlyExpensesByYear(userId: string): Promise<number[]> {
+  const currentYear = new Date().getFullYear();
+  const expensesByMonth: number[] = new Array(12).fill(0);
+
+  // Get expenses for each month with transactions
+  const transactions = await this.transactionModel.aggregate([
+    { $match: { userId: new Types.ObjectId(userId), date: { $gte: new Date(currentYear, 0, 1) } } }, // Match transactions by userId and within the current year
+    { $group: { _id: { $month: '$date' }, totalExpenses: { $sum: '$montant' } } }, // Group transactions by month and calculate the total expenses
+  ]).exec();
+
+  // Update expenses for each month with transactions
+  transactions.forEach((result: { _id: number; totalExpenses: number }) => {
+    expensesByMonth[result._id - 1] = result.totalExpenses;
+  });
+
+  return expensesByMonth;
+}
+
+  async getTotalExpensesForUser(userId: string): Promise<number> {
+    const totalExpenses = await this.transactionModel.aggregate([
+      { $match: { userId:new Types.ObjectId(userId) } }, // Match transactions by userId
+      { $group: { _id: null, totalExpenses: { $sum: '$montant' } } }, // Group transactions and calculate the total expenses
+    ]).exec();
+  
+    if (totalExpenses.length === 0) {
+      return 0; // Return 0 if no transactions found for the user
+    }
+  
+    return totalExpenses[0].totalExpenses;
+  }
+  
+  async getMostExpensiveCategory(userId: string): Promise<{ category: string; totalExpenses: number } | null> {
+    const expensesByCategory = await this.getUserExpensesByCategoryh(userId);
+  
+    // Find the most expensive category
+    let mostExpensiveCategory: string | null = null;
+    let maxExpenses = 0;
+  
+    for (const category of Object.keys(expensesByCategory)) {
+      if (expensesByCategory[category] > maxExpenses) {
+        maxExpenses = expensesByCategory[category];
+        mostExpensiveCategory = category;
+      }
+    }
+  
+    if (mostExpensiveCategory) {
+      return { category: mostExpensiveCategory, totalExpenses: maxExpenses };
+    } else {
+      return null; // Return null if no expenses found for the user
+    }
+  }
+  async getUserExpensesByCategoryhMonth(userId: string, month: number): Promise<{ [category: string]: number }> {
+    console.log('transactions')
+
+    const transactions = await this.transactionModel.aggregate([
+        { 
+            $match: { 
+                userId: new Types.ObjectId(userId),
+                $expr: { $eq: [{ $month: "$date" }, month] } // Match transactions by userId and month
+            } 
+        },
+        { 
+            $group: { 
+                _id: '$categorie', 
+                totalExpenses: { $sum: '$montant' } 
+            } 
+        }, // Group transactions by category and calculate the total expenses
+    ]).exec();
+    console.log('transactions', transactions)
+    const expensesByCategory: { [category: string]: number } = {};
+    transactions.forEach((result: { _id: string; totalExpenses: number }) => {
+        expensesByCategory[result._id] = result.totalExpenses;
+    });
+
+    return expensesByCategory;
+}
+
+
+async getMonthlyExpensesByCategory(userId: string): Promise<{ name: string; data: number[] }[]> {
+  const currentYear = new Date().getFullYear();
+
+  // Initialize an array to hold expenses for each month
+  const expensesByCategoryMap: { [category: string]: number[] } = {};
+
+  // Get total expenses for each category for the entire year
+  const totalExpensesByCategory = await this.transactionModel.aggregate([
+    { 
+      $match: { 
+        userId: new Types.ObjectId(userId),
+        date: { $gte: new Date(currentYear, 0, 1) },
+      } 
+    },
+    { 
+      $group: { 
+        _id: '$categorie', 
+        totalExpenses: { $sum: '$montant' } 
+      } 
+    },
+  ]).exec();
+
+  // Initialize category data arrays
+  totalExpensesByCategory.forEach((result: { _id: string; totalExpenses: number }) => {
+    expensesByCategoryMap[result._id] = new Array(12).fill(0);
+  });
+
+  // Get expenses for each month with transactions
+  const transactions = await this.transactionModel.aggregate([
+    { 
+      $match: { 
+        userId: new Types.ObjectId(userId),
+        date: { $gte: new Date(currentYear, 0, 1) },
+      } 
+    },
+    { 
+      $group: { 
+        _id: { month: { $month: '$date' }, category: '$categorie' }, 
+        totalExpenses: { $sum: '$montant' } 
+      } 
+    }, // Group transactions by month and category and calculate the total expenses
+  ]).exec();
+
+  // Update expenses for each category and month
+  transactions.forEach((result: { _id: { month: number; category: string }; totalExpenses: number }) => {
+    const monthIndex = result._id.month - 1;
+    const category = result._id.category;
+    expensesByCategoryMap[category][monthIndex] = result.totalExpenses;
+  });
+
+  // Format data as required
+  const formattedData = Object.keys(expensesByCategoryMap).map((category: string) => ({
+    name: category,
+    data: expensesByCategoryMap[category],
+  }));
+
+  return formattedData;
+}
+
+
+
 }

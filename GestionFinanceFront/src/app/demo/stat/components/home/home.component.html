@@ -1,0 +1,87 @@
+<div class="left">
+  <button type="button" class="btn btn-primary" (click)="showdate()">Generate Rapport</button>
+
+</div>
+<div class="row" *ngIf="rapp">
+  <div class="col">
+    <div class="form-floating mb-3">
+      <input type="date" class="form-control" id="date" placeholder="Date"  name="startDate"
+        [(ngModel)]="startDate" required>
+      <label for="date">Date début</label>
+    </div>
+  </div>
+  <div class="col">
+    <div class="form-floating mb-3">
+      <input type="date" class="form-control" id="date" placeholder="Date"  name="endDate"
+      [(ngModel)]="endDate" required>
+      <label for="date">Date fin</label>
+    </div>
+  </div>
+  <div class="col">
+    <button type="button" class="btn btn-success" (click)="generateRapport()">Generate</button>
+
+  </div>
+
+</div>
+
+<div class="row">
+
+
+  <div class="col-md-4">
+    <app-card [hidHeader]="true" cardClass="bg-c-blue order-card">
+      <h6 class="text-white">Expanse</h6>
+      <h2 class="text-end text-white"
+        ><i class="feather icon-shopping-cart float-start"></i><span>{{ totlExpanse }}</span>
+      </h2>
+      <p class="m-b-0"
+        >total expanse<span class="float-end">DT</span></p
+      >
+    </app-card>
+  </div>
+  <div class="col-md-4">
+    <app-card [hidHeader]="true" cardClass="bg-c-red order-card">
+      <h6 class="text-white">Most Expansive Categorie</h6>
+      <h2 class="text-end text-white"
+        ><i class="feather icon-shopping-cart float-start"></i><span>{{ this.mostExpensecat.totalExpenses }}</span>
+      </h2>
+      <p class="m-b-0"
+        >{{  this.mostExpensecat.category }}<span class="float-end">DT</span></p
+      >
+    </app-card>
+  </div>
+  <div class="col-md-4">
+    <app-card [hidHeader]="true" cardClass="bg-c-green order-card">
+      <h6 class="text-white">Actif Budget</h6>
+      <h2 class="text-end text-white"
+        ><i class="feather icon-shopping-cart float-start"></i><span>13</span>
+      </h2>
+      <p class="m-b-0"
+        >total budget<span class="float-end">DT</span></p
+      >
+    </app-card>
+  </div>
+</div>
+<app-barchart-months
+></app-barchart-months>
+<app-barmultiple></app-barmultiple>
+<div class="container">
+  <div class="card cn">
+    <div class="card-header header" >
+      Sonde 2
+    </div>
+    <div class="card-body">
+      <app-linechartcat></app-linechartcat>
+    </div>
+  </div>
+    <div class="card cn">
+      <div class="card-header header">
+        Sonde 2
+      </div>
+
+      <app-linechartcat-month ></app-linechartcat-month>
+
+    </div>
+</div>
+
+
+

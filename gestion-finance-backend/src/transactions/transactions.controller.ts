@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, NotFoundException, HttpException, HttpStatus, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, NotFoundException, HttpException, HttpStatus, Query } from '@nestjs/common';
 import { TransactionsService } from './transactions.service';
 import { CreateTransactionDto } from './dto/create-transaction.dto';
 import { UpdateTransactionDto } from './dto/update-transaction.dto';
@@ -56,11 +56,11 @@ export class TransactionsController {
       }
     }
   }
-  @Get('date-range/:userId')
+  @Get('date-range')
   async findTransactionsByDateRange(
     @Query('startDate') startDate: Date,
     @Query('endDate') endDate: Date,
-    @Param('userId') userId: string
+    @Query('userId') userId: string
   ): Promise<Transaction[]> {
     return this.transactionsService.findTransactionsByDateRange(userId,startDate, endDate);
   }
@@ -106,8 +106,31 @@ export class TransactionsController {
     return this.transactionsService.getUserExpensesByCategory(userId, category);
   }
 
-  @Get('expensesGroupedBycategories')
-  async getUserExpensesByCategories(@Query('userId') userId: string): Promise<Map<string, number>> {
-    return this.transactionsService.getUserExpensesByCategories(userId);
+  @Get('exbencegroupedbycat')
+  async getUserExpensesByCategories(@Query('userId') userId: string): Promise<{ [category: string]: number }>  {
+    return this.transactionsService.getUserExpensesByCategoryh(userId);
   }
+
+  @Get('exbencegroupedbydat')
+async getMonthlyExpensesByYear(@Query('userId') userId: string): Promise<number[]> {
+  return this.transactionsService.getMonthlyExpensesByYear(userId);
 }
+@Get('gettotalexpense')
+async getTotalExpensesForUser(@Query('userId') userId: string): Promise<number> {
+  return this.transactionsService.getTotalExpensesForUser(userId);
+}
+@Get('getmostExpansecat')
+async getmostExpanse(@Query('userId') userId: string): Promise<any> {
+  return this.transactionsService.getMostExpensiveCategory(userId);
+}
+
+@Get('exbencegroupedbycatmonth')
+async getExpensesBycatMonth(@Query('userId') userId: string,@Query('month') month: string): Promise<any> {
+  return this.transactionsService.getUserExpensesByCategoryhMonth(userId,+month);
+}
+@Get('expensebyyearcat')
+async getMonthlyExpensesByCategory(@Query('userId') userId: string): Promise<any> {
+  return this.transactionsService.getMonthlyExpensesByCategory(userId);
+}
+}
+
