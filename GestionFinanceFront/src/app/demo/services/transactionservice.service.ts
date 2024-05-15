@@ -41,7 +41,7 @@ export class TransactionserviceService {
 
   chercherpardate(userId: string, startDate: string, endDate: string)
   {
-    const url = `${this.apiurl}date-range/${userId}?startDate=${startDate}&endDate=${endDate}`;
+    const url = `${this.apiurl}date-range/?startDate=${startDate}&endDate=${endDate}&userId=${userId}`;
 
     return this.http.get(url)
   }
