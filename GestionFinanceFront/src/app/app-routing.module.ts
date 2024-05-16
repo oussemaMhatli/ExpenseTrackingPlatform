@@ -13,6 +13,7 @@ import { UserProfileComponent } from './demo/user-profile/user-profile.component
 import { TagsComponent } from './demo/tags/tags.component';
 import DashAnalyticsComponent from './demo/dash-analytics/dash-analytics.component';
 import { BudgetComponent } from './demo/budget/budget.component';
+import { PlanificationDepensesComponent } from './planification-depenses/planification-depenses.component';
 
 
 const routes: Routes = [
@@ -88,6 +89,8 @@ const routes: Routes = [
       {path:"Budget",component:BudgetComponent,canActivate: [linkGuardGuard]},
 
       {path:"UserProfile",component:UserProfileComponent,canActivate: [linkGuardGuard]},
+      {path:"PlanifierDep",component:PlanificationDepensesComponent,canActivate: [linkGuardGuard]},
+
       // {
       //   path: 'chart',
       //   loadComponent: () => import('./demo/chart & map/core-apex/core-apex.component')
