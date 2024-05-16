@@ -9,6 +9,7 @@ import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { TagModule } from './tag/tag.module';
 import { BudgetModule } from './budget/budget.module';
+import { PlanificationDepensesModule } from './planification-depenses/planification-depenses.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { BudgetModule } from './budget/budget.module';
     AuthModule,
     TagModule,
     BudgetModule,
+    PlanificationDepensesModule,
 
   ],
   controllers: [AppController],
