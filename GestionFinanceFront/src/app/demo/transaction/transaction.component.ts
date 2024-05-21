@@ -7,6 +7,8 @@ import { AuthService } from 'src/app/services/auth.service';
 import { NgForm } from '@angular/forms';
 import { ServiceTagsService } from '../services/service-tags.service';
 import { Tags } from '../user-management/components/modeles/Tags';
+import { BudgetserviceService } from '../services/budgetservice.service';
+import { Budget } from '../user-management/components/modeles/Budget';
 
 @Component({
   selector: 'app-transaction',
@@ -19,7 +21,7 @@ export class TransactionComponent implements OnInit {
   @ViewChild('tr') trie!: NgForm;
 
 
-  constructor(private service: TransactionserviceService, private auth: AuthService,private servicetag:ServiceTagsService) { }
+  constructor(private service: TransactionserviceService, private auth: AuthService, private servicetag: ServiceTagsService, private servicebudget: BudgetserviceService) { }
   newTransaction!: transaction
   decodedToken: any;
   useremail!: string;
@@ -27,10 +29,13 @@ export class TransactionComponent implements OnInit {
   oldtransaction: transaction[] = [];
   transactionparrangdate: transaction[] = [];
 
-  tabletags:Tags[]=[]
+  tabletags: Tags[] = []
   sortByDate: boolean = true;
   sortBymontant: boolean = true;
-  noResultat:any
+  noResultat: any
+
+  montantBudget: any;
+  datebudget:any;
 
 
 
@@ -40,9 +45,28 @@ export class TransactionComponent implements OnInit {
   ngOnInit(): void {
 
     this.decodeToken();
+    this.decodedToken = this.auth.decodetoken();
+
+
+    this.montantBudget = localStorage.getItem('montat');
+    // this.datebudget = localStorage.getItem('datefin');
+    // console.log( new Date (this.datebudget));
+
+    this.datebudget = localStorage.getItem('datefin');
+
+  this.datebudget = new Date(this.datebudget);
+
+console.log(this.datebudget);
+
+
+
+
+
+
 
 
     this.getAllTags();
+
     this.addtransaction(this.newTransaction)
 
   }
@@ -62,6 +86,9 @@ export class TransactionComponent implements OnInit {
 
   addtransaction(newT: transaction) {
     this.useremail = this.decodedToken.email
+
+
+
     //console.log(this.useremail);
 
 
@@ -74,24 +101,35 @@ export class TransactionComponent implements OnInit {
         console.log("user", value._id);
         this.iduser = value._id
         this.getpariduser(this.iduser) // methide get transaction par id user
+        this.getbudget(this.iduser)
+
+        console.log(newT.date);
+        console.log(this.datebudget);
+
+
+
         newT.userId = this.iduser
-        if (this.add.valid == true) {
+        // if (this.add.valid == true) {
 
-          this.service.addTransaction(newT).subscribe({
 
-            next: (reponse) => {
-              console.log("add", reponse);
-              alert("ajouter transaction successfully")
+        //   if(+this.montantBudget>1000){alert("fot el budget")}
+        //   else{
+        //     this.service.addTransaction(newT).subscribe({
 
-              this.ngOnInit()
+        //       next: (reponse) => {
+        //         console.log("add", reponse);
+        //         alert("ajouter transaction successfully")
 
-            },
-            error: (err) => {
-              console.log(err);
-            }
+        //         this.ngOnInit()
 
-          })
-        }
+        //       },
+        //       error: (err) => {
+        //         console.log(err);
+        //       }
+
+        //     })
+        //   }
+        // }
       },
       error: (e) => { console.log(e); },
 
@@ -139,64 +177,77 @@ export class TransactionComponent implements OnInit {
   }
 
 
-  getAllTags(){
+  getAllTags() {
     this.servicetag.getAllTags().subscribe({
-     next:(data:Tags[])=>{
-       this.tabletags=data;
-       console.log("tous les tags:",this.tabletags);
-
-     }
-   })
-
- }
-
-
- toggleSortByDate() {
-
-  this.sortByDate = !this.sortByDate;
-}
-toggleSortByMontant() {
-  this.sortBymontant = !this.sortBymontant;
-}
-
-
-
-
-
-
-
-//partie afficher par datedebut et datefin
-
-
-
-chercherpardated(form: any) {
-  if(form.startDate > form.endDate){
-   alert('La date de début est postérieure à la date de fin');
-  }
-  else{
-    this.service.chercherpardate(this.iduser,form.startDate,form.endDate).subscribe({
-      next:(data:any)=>{
-        console.log(data);
-        this.transactionparrangdate=data
-        if(this.transactionparrangdate.length==0)this.noResultat=true;
-        else this.noResultat=false;
-        console.log(this.noResultat);
-
-      },
-      error:(err)=>{
-        console.log(err);
+      next: (data: Tags[]) => {
+        this.tabletags = data;
+        console.log("tous les tags:", this.tabletags);
 
       }
-
     })
-
-
 
   }
 
 
+  toggleSortByDate() {
 
-}
+    this.sortByDate = !this.sortByDate;
+  }
+  toggleSortByMontant() {
+    this.sortBymontant = !this.sortBymontant;
+  }
+
+
+
+
+
+
+
+  //partie afficher par datedebut et datefin
+
+
+
+  chercherpardated(form: any) {
+    if (form.startDate > form.endDate) {
+      alert('La date de début est postérieure à la date de fin');
+    }
+    else {
+      this.service.chercherpardate(this.iduser, form.startDate, form.endDate).subscribe({
+        next: (data: any) => {
+          console.log(data);
+          this.transactionparrangdate = data
+          if (this.transactionparrangdate.length == 0) this.noResultat = true;
+          else this.noResultat = false;
+          console.log(this.noResultat);
+
+        },
+        error: (err) => {
+          console.log(err);
+
+        }
+
+      })
+
+
+
+    }
+  }
+
+  getbudget(id: string) {
+    this.servicebudget.getbudgetpariduser(id).subscribe({
+      next: (mont: Budget[]) => {
+        console.log(mont[0].montant);
+        this.montantBudget = mont[0].montant
+        localStorage.setItem("montat", mont[0].montant.toString())
+        localStorage.setItem("datefin", mont[0].dateFin.toString())
+
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    })
+    return this.montantBudget
+  }
 }
 
 

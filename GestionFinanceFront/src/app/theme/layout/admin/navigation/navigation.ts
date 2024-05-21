@@ -1,7 +1,7 @@
 export interface NavigationItem {
   id: string;
   title: string;
-  type: 'item' | 'collapse' | 'group';
+  type: 'item' | 'collapse' | 'group' |'PlanifierDep';
   translate?: string;
   icon?: string;
   hidden?: boolean;
@@ -53,6 +53,13 @@ export const NavigationItems: NavigationItem[] = [
         type: 'item',
         url: '/Budget',
         icon: 'feather icon-minus-square'
+      },
+      {
+        id: 'dashboard',
+        title: 'PlanifierDep',
+        type: 'item',
+        url: '/PlanifierDep',
+        icon: 'feather icon-home'
       },
       // {
       //   id: 'dashboard',

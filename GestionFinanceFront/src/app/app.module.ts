@@ -34,6 +34,7 @@ import { TagsComponent } from './demo/tags/tags.component';
 import { DateSortPipePipe } from './pipes/date-sort-pipe.pipe';
 import { TrieMontantPipe } from './pipes/trie-montant.pipe';
 import { BudgetComponent } from './demo/budget/budget.component';
+import { PlanificationDepensesComponent } from './planification-depenses/planification-depenses.component';
 
 
 
@@ -61,6 +62,7 @@ import { BudgetComponent } from './demo/budget/budget.component';
     DateSortPipePipe,
     TrieMontantPipe,
     BudgetComponent,
+    PlanificationDepensesComponent,
 
 
 

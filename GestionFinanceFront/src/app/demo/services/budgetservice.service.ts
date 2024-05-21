@@ -8,16 +8,24 @@ import { Observable } from 'rxjs';
 })
 export class BudgetserviceService {
 
-  constructor(private http:HttpClient) { }
+  constructor(private http: HttpClient) { }
 
-  private url="http://localhost:3000/"
+  private url = "http://localhost:3000/"
 
 
 
-  getbudgetparid(userid:string):Observable<Budget>{
-    return this.http.get<Budget>(this.url+"budget/user/"+userid)
+  getbudgetparid(userid: string): Observable<Budget> {
+    return this.http.get<Budget>(this.url + "budget/user/" + userid)
   }
-  ajouterbudget(budget:Budget){
-    return this.http.post(this.url+"budget/create",budget)
+  ajouterbudget(budget: Budget) {
+    return this.http.post(this.url + "budget/create", budget)
   }
+  removebudget(id: string): Observable<Budget> {
+    return this.http.delete<Budget>(this.url + "budget/" + id)
+  }
+  getbudgetpariduser(id: string):Observable<Budget[]> {
+    return this.http.get<Budget[]>(this.url + "budget/user/" + id)
+  }
+
+
 }
