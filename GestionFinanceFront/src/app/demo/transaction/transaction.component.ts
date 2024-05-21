@@ -9,7 +9,6 @@ import { ServiceTagsService } from '../services/service-tags.service';
 import { Tags } from '../user-management/components/modeles/Tags';
 import { BudgetserviceService } from '../services/budgetservice.service';
 import { Budget } from '../user-management/components/modeles/Budget';
-import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-transaction',
